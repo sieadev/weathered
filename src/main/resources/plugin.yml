@@ -1,0 +1,5 @@
+name: Weathered
+author: sieadev
+version: '${project.version}'
+main: dev.siea.weathered.Weathered
+api-version: '1.20'
