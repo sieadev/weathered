@@ -1,6 +1,6 @@
 <div align='center'>
 
-<h1>Weathered</h1>
+<h1>Weathered🌥️</h1>
 <p>Weathered is a simple spigot plugin to sync real live weather with your Minecraft world.</p>
 
 <p>Adding regions soon !</p>
