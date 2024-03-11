@@ -20,7 +20,7 @@
 > 5. Restart/Reload your server and enjoy!
 
 ## Config
-```
+```yml
 openweatherkey: '**************'
 
 region: 'Berlin,Germany'
