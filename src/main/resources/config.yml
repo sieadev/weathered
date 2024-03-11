@@ -2,15 +2,12 @@
 #
 #
 
-# Weather-Update Timer
-update_interval_seconds: 10
-
 # Create an account at openweathermap.org for this
-openweatherkey: 'xxx'
+openweatherkey: '**************'
 
-# What region's weather would you like to replicate?
-# Eg: 'Berlin,Germany', 'London, United Kingdom', 'Paris, France', 'Rome, Italy', 'Madrid, Spain', 'Athens, Greece'
+# Syntax 'City,Country'
 region: 'Berlin,Germany'
 
-# Worlds effected
+update_interval_seconds: 10
+
 worlds: ['world']
