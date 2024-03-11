@@ -9,6 +9,9 @@
 <br>
 </div>
 
+![image](https://github.com/sieadev/weathered/assets/69807609/b75e2cff-f1d8-4a4e-86fe-0019d3457665)
+
+
 ## Setup
 > 1. Create a free account on [OpenWeatherAPI](https://openweathermap.org/) and copy your API key.
 > 2. Navigate to Weathered's `config.yml` and set `openweatherkey` as your previously acquired API key.
