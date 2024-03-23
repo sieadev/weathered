@@ -1,4 +1,4 @@
-package dev.siea.weathered.api;
+package dev.siea.weathered.data;
 
 public enum WeatherType {
     CLOUDS, RAIN, STORM, SNOW, CLEAR

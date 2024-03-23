@@ -1,5 +1,6 @@
-package dev.siea.weathered.api;
+package dev.siea.weathered.data;
 
+import dev.siea.weathered.Weathered;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -12,6 +13,8 @@ import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 
 public class OpenWeatherAPI {
+
+    private static int fails = 0;
     private static String key;
     public static Weather getWeather(String region) {
         String apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + region + "&appid=" + key;
@@ -24,12 +27,19 @@ public class OpenWeatherAPI {
 
             int timezone = jsonResponse.getInt("timezone");
 
+            double temp = jsonResponse.getJSONObject("main").getDouble("temp");;
+
             LocalDateTime localDateTime = calculateLocalTime(timezone);
 
             long minecraftTicks = calculateMinecraftTime(localDateTime);
 
-            return new Weather(convertToWeatherType(weatherDescription), region,minecraftTicks);
+            fails = 0;
+            return new Weather(convertToWeatherType(weatherDescription), region,minecraftTicks, localDateTime, temp);
         } catch (Exception e) {
+            fails++;
+            if (fails > 5){
+                Weathered.disable("§cOpen WeatherAPI is not responding...");
+            }
             return null;
         }
     }

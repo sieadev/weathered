@@ -2,6 +2,8 @@
 #
 #
 
+# ---------------------------API Settings---------------------------
+
 # Create an account at openweathermap.org for this
 openweatherkey: '**************'
 
@@ -11,3 +13,14 @@ region: 'Berlin,Germany'
 update_interval_seconds: 10
 
 worlds: ['world']
+
+# ------------------------Actionbar Settings------------------------
+
+displayTime: true
+
+displayTemp: true
+
+
+# ------------------------------Others------------------------------
+
+measurement_system: METRIC
