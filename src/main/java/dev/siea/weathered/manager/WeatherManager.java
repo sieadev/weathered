@@ -1,7 +1,6 @@
 package dev.siea.weathered.manager;
 
 import dev.siea.weathered.Weathered;
-import dev.siea.weathered.api.PlaceHolderManager;
 import dev.siea.weathered.data.API;
 import dev.siea.weathered.data.OpenWeatherAPI;
 import dev.siea.weathered.data.Weather;

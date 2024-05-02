@@ -3,7 +3,6 @@ package dev.siea.weathered.data;
 import dev.siea.weathered.Weathered;
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -27,7 +26,7 @@ public class OpenWeatherAPI {
 
             int timezone = jsonResponse.getInt("timezone");
 
-            double temp = jsonResponse.getJSONObject("main").getDouble("temp");;
+            double temp = jsonResponse.getJSONObject("main").getDouble("temp");
 
             LocalDateTime localDateTime = calculateLocalTime(timezone);
 
@@ -46,11 +45,9 @@ public class OpenWeatherAPI {
     private static JSONObject getJsonObject(String apiUrl) throws IOException {
         URL url = new URL(apiUrl);
 
-        // Establish HTTP connection
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
 
-        // Read response
         BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
         StringBuilder response = new StringBuilder();
         String line;
@@ -59,7 +56,6 @@ public class OpenWeatherAPI {
         }
         reader.close();
 
-        // Parse JSON response
         return new JSONObject(response.toString());
     }
 

@@ -10,8 +10,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
-import java.util.Objects;
 
 public class ActionBarManager implements Listener {
     private static boolean displayTime;

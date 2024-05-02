@@ -20,15 +20,17 @@ public class GUIManager implements Listener {
 
     @EventHandler
     public static void onInventoryClick(InventoryClickEvent event){
-        if (!openGUIs.containsKey((Player) event.getWhoClicked())) return;
-        Inventory inventory = openGUIs.get((Player) event.getWhoClicked());
+        Player player = (Player) event.getWhoClicked();
+        if (!openGUIs.containsKey(player)) return;
+        Inventory inventory = openGUIs.get(player);
         if (inventory != event.getInventory()) return;
         event.setCancelled(true);
         String region = RegionGUI.whatIsThisButton(event.getSlot());
         if (region != null){
             WeatherManager.changeRegion(region);
-            event.getWhoClicked().closeInventory();
+            player.closeInventory();
             RegionGUI.regenerate();
+            player.sendMessage("§eYou changed the region to §6§l" + region);
         }
     }
 }

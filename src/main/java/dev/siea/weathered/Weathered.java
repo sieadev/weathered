@@ -19,7 +19,6 @@ import java.util.Objects;
 public final class Weathered extends JavaPlugin {
     private static Plugin plugin;
     private static API api;
-    private static MeasurementSystem measurementSystem;
 
     private static boolean placeHolderAPI;
     @Override
@@ -28,6 +27,7 @@ public final class Weathered extends JavaPlugin {
         plugin = this;
 
         //Load Measurement System
+        MeasurementSystem measurementSystem;
         try{
             measurementSystem = MeasurementSystem.valueOf(Objects.requireNonNull(plugin.getConfig().getString("measurement_system")).toUpperCase());
         } catch (NullPointerException | IllegalArgumentException e){
@@ -45,7 +45,7 @@ public final class Weathered extends JavaPlugin {
 
         //Try enabling PlaceHolderAPI
         if (getServer().getPluginManager().getPlugin("PlaceholderAPI") != null) {
-            new PlaceHolderManager(this,measurementSystem).register();
+            new PlaceHolderManager(this, measurementSystem).register();
             placeHolderAPI = true;
             getLogger().info("Custom placeholders registered successfully.");
         } else {
@@ -58,7 +58,7 @@ public final class Weathered extends JavaPlugin {
 
         //Registering ActionbarManager
         if (plugin.getConfig().getBoolean("displayTime") || plugin.getConfig().getBoolean("displayTemp")){
-            plugin.getServer().getPluginManager().registerEvents(new ActionBarManager(plugin,measurementSystem),plugin);
+            plugin.getServer().getPluginManager().registerEvents(new ActionBarManager(plugin, measurementSystem),plugin);
             plugin.getServer().getPluginManager().registerEvents(new GUIManager(),plugin);
         }
 

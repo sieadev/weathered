@@ -9,7 +9,6 @@ import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.inventory.meta.SkullMeta;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -67,6 +66,7 @@ public class RegionGUI {
     private static ItemStack createItem(String name, Material material, List<String> lore) {
         ItemStack itemStack = new ItemStack(material);
         ItemMeta meta = itemStack.getItemMeta();
+        assert meta != null;
         meta.setDisplayName(name);
         meta.setLore(lore);
         itemStack.setItemMeta(meta);
@@ -87,14 +87,6 @@ public class RegionGUI {
             inventory = generateInventory();
         }
         return inventory;
-    }
-
-    private static ItemStack setOwner(ItemStack item) {
-        SkullMeta meta = (SkullMeta) item.getItemMeta();
-        assert meta != null;
-        meta.setOwningPlayer(Bukkit.getOfflinePlayer("BlockminersTV"));
-        item.setItemMeta(meta);
-        return item;
     }
 
     static {
