@@ -113,4 +113,8 @@ public class WeatherManager implements Listener {
     private static void sendSnowPackets(Player player){
 
     }
+
+    public static Weather getWeather() {
+        return weather;
+    }
 }

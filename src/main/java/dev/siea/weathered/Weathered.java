@@ -7,6 +7,7 @@ import dev.siea.weathered.data.OpenWeatherAPI;
 import dev.siea.weathered.commands.WeatheredCommand;
 import dev.siea.weathered.commands.WeatheredTabCompletions;
 import dev.siea.weathered.data.Weather;
+import dev.siea.weathered.gui.GUIManager;
 import dev.siea.weathered.manager.ActionBarManager;
 import dev.siea.weathered.manager.WeatherManager;
 import org.bukkit.Bukkit;
@@ -18,7 +19,6 @@ import java.util.Objects;
 public final class Weathered extends JavaPlugin {
     private static Plugin plugin;
     private static API api;
-
     private static MeasurementSystem measurementSystem;
 
     private static boolean placeHolderAPI;
@@ -59,6 +59,7 @@ public final class Weathered extends JavaPlugin {
         //Registering ActionbarManager
         if (plugin.getConfig().getBoolean("displayTime") || plugin.getConfig().getBoolean("displayTemp")){
             plugin.getServer().getPluginManager().registerEvents(new ActionBarManager(plugin,measurementSystem),plugin);
+            plugin.getServer().getPluginManager().registerEvents(new GUIManager(),plugin);
         }
 
         //Registering Commands

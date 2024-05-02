@@ -26,6 +26,7 @@ public class PlaceHolderManager extends PlaceholderExpansion {
 
     @Override
     public String onRequest(OfflinePlayer player, @NotNull String param) {
+        if (param.isEmpty()) return weather.getWeatherType().toString();
         switch (param){
             case "weather":
                 return weather.getWeatherType().toString();
@@ -37,7 +38,7 @@ public class PlaceHolderManager extends PlaceholderExpansion {
             case "time":
                 return convertTimeFormat(weather.getLocalDateTime());
         }
-        return null; //
+        return  weather.getWeatherType().toString(); //
     }
 
     private String convertTimeFormat(LocalDateTime localDateTime) {
