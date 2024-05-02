@@ -38,7 +38,7 @@ public class WeatherManager implements Listener {
             public void run() {
                 updateWeather();
             }
-        }.runTaskTimer(plugin, 0, 20L * plugin.getConfig().getInt("update_interval_seconds")); // Update interval in minutes
+        }.runTaskTimer(plugin, 0, 20L * plugin.getConfig().getInt("update_interval_seconds"));
     }
 
     private static void updateWeather(){

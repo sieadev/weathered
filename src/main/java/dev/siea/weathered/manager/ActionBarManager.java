@@ -28,7 +28,7 @@ public class ActionBarManager implements Listener {
             public void run() {
                 updateActionbar(plugin.getServer());
             }
-        }.runTaskTimer(plugin, 0, 30L); // Update interval in minutes
+        }.runTaskTimer(plugin, 0, 30L);
     }
 
     public static void updateWeather(Weather weather){
