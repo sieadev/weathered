@@ -49,6 +49,7 @@ public class WeatheredCommand implements CommandExecutor {
             else {
                 sender.sendMessage("Only players can use this command!");
             }
+            return true;
         }
         return false;
     }

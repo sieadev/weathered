@@ -20,7 +20,7 @@ public class RegionGUI {
     private static Inventory inventory;
 
     private static Inventory generateInventory(){
-        Inventory inventory = Bukkit.createInventory(null,5*9, "Weathered - Change Region");
+        Inventory inventory = Bukkit.createInventory(null,6*9, "Weathered - Change Region");
         for (int i = 0; i < inventory.getSize(); i++){
             inventory.setItem(i, createItem(" ", Material.GRAY_STAINED_GLASS_PANE));
         }
@@ -32,24 +32,31 @@ public class RegionGUI {
         description.add("§aWeather: " + weather.getWeatherType());
         description.add("§aTemperature: " + weather.getTemp());
         description.add("§aTemperature: " + Converter.localDateTimeToString(weather.getLocalDateTime(), MeasurementSystem.METRIC));
-        ItemStack current = createItem("§cCurrent", Material.PLAYER_HEAD, description);
-        current = setOwner(current);
+        ItemStack current = createItem("§e§lCurrent", Material.PLAYER_HEAD, description);
         inventory.setItem(4,current);
 
         buttons.clear();
 
-        int slot = 9;
+        int slot = 10;
         for (String region : regions){
-            if (slot == 17 || slot == 26) {
+            if (slot == 17 || slot == 26 || slot == 35) {
                 slot = slot + 2;
             }
-            if (region.equals("§e" + weather.getRegion())) continue;
-            ItemStack regionItem = createItem(region, Material.PLAYER_HEAD);
-            regionItem = setOwner(regionItem);
+            if (slot > 42) break;
+            if (region.equals(weather.getRegion())) continue;
+            ItemStack regionItem = createItem("§e" + region, Material.PLAYER_HEAD);
             inventory.setItem(slot,regionItem);
             buttons.put(slot, region);
             slot++;
         }
+
+
+        List<String> extraDescription = new ArrayList<>();
+        extraDescription.add("§7You can always add custom regions using: ");
+        extraDescription.add("§7/weathered region city,country");
+        ItemStack extra = createItem("§eSomething's missing?", Material.GREEN_TERRACOTTA, extraDescription);
+        inventory.setItem(43,extra);
+
         return inventory;
     }
 
@@ -114,13 +121,14 @@ public class RegionGUI {
         regions.add("Buenos Aires,Argentina");
         regions.add("Istanbul,Turkey");
         regions.add("Jakarta,Indonesia");
-        regions.add("Lagos,Nigeria");
         regions.add("Lima,Peru");
         regions.add("Madrid,Spain");
         regions.add("Manila,Philippines");
+        regions.add("Warsaw,Poland");
+        regions.add("Lagos,Nigeria");
     }
 
     public static void regenerate() {
-        inventory = getInventory();
+        inventory = null;
     }
 }

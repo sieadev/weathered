@@ -66,7 +66,7 @@ public class PlaceHolderManager extends PlaceholderExpansion {
 
     @Override
     public @NotNull String getIdentifier() {
-        return plugin.getName();
+        return "weathered";
     }
 
     @Override
