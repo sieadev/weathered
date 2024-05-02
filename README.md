@@ -30,4 +30,10 @@ update_interval_seconds: 10
 worlds: ['world']
 ```
 
-
+## PlaceholderAPI
+| Key                    | Data                                        |
+|------------------------|---------------------------------------------|
+| `%weathered%`          | The weather of the defined region           |
+| `%weathered_temp%`     | The temperature of the defined region       |
+| `%weathered_time%`     | The time of the defined region              |
+| `%weathered_region%`   | The defined region                          |
