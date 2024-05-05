@@ -34,7 +34,7 @@ public class RegionGUI {
         description.add("§aRegion: " + weather.getRegion());
         description.add("§aWeather: " + weather.getWeatherType());
         description.add("§aTemperature: " + weather.getTemp());
-        description.add("§aTemperature: " + Converter.localDateTimeToString(weather.getLocalDateTime(), MeasurementSystem.METRIC));
+        description.add("§aTime: " + Converter.localDateTimeToString(weather.getLocalDateTime(), MeasurementSystem.METRIC));
         ItemStack current = createItem("§e§lCurrent", Material.PLAYER_HEAD, description);
         PlayerProfile profile = getProfile(regions.get(weather.getRegion()));
         if (profile != null) {
