@@ -10,6 +10,8 @@ import dev.siea.weathered.data.Weather;
 import dev.siea.weathered.gui.GUIManager;
 import dev.siea.weathered.manager.ActionBarManager;
 import dev.siea.weathered.manager.WeatherManager;
+import org.bstats.bukkit.Metrics;
+import org.bstats.charts.CustomChart;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -19,8 +21,8 @@ import java.util.Objects;
 public final class Weathered extends JavaPlugin {
     private static Plugin plugin;
     private static API api;
-
     private static boolean placeHolderAPI;
+
     @Override
     public void onEnable() {
         saveDefaultConfig();
@@ -65,11 +67,17 @@ public final class Weathered extends JavaPlugin {
         //Registering Commands
         Objects.requireNonNull(getCommand("weathered")).setExecutor(new WeatheredCommand());
         Objects.requireNonNull(getCommand("weathered")).setTabCompleter(new WeatheredTabCompletions());
+
+        //Load BStats
+        enableBStats();
     }
 
-    @Override
+    private void enableBStats(){
+        int pluginID = 21840;
+        new Metrics(this, pluginID);
+    }
+
     public void onDisable() {
-        // Plugin shutdown logic
     }
 
     public static void disable(String reason) {
