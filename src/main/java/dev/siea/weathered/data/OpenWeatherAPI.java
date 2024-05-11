@@ -37,7 +37,7 @@ public class OpenWeatherAPI {
         } catch (Exception e) {
             fails++;
             if (fails > 5){
-                Weathered.disable("§cOpen WeatherAPI is not responding...");
+                Weathered.disable("§cOpen WeatherAPI is not responding : " + e.getMessage());
             }
             return null;
         }
