@@ -1,10 +1,7 @@
 package dev.siea.weathered.manager;
 
 import dev.siea.weathered.Weathered;
-import dev.siea.weathered.data.API;
-import dev.siea.weathered.data.OpenWeatherAPI;
-import dev.siea.weathered.data.Weather;
-import dev.siea.weathered.data.WeatherType;
+import dev.siea.weathered.data.*;
 import org.bukkit.GameRule;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -55,6 +52,13 @@ public class WeatherManager implements Listener {
         plugin.saveConfig();
         reload();
         WeatherManager.region = region;
+    }
+
+    public static void changeRegion(Region region){
+        plugin.getConfig().set("region", region.getCityID());
+        plugin.saveConfig();
+        reload();
+        WeatherManager.region = region.toString();
     }
 
     public static void reload() {

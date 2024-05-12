@@ -1,5 +1,8 @@
 package dev.siea.weathered.commands;
 
+import dev.siea.weathered.data.OpenWeatherAPI;
+import dev.siea.weathered.data.Region;
+import dev.siea.weathered.data.Weather;
 import dev.siea.weathered.gui.GUIManager;
 import dev.siea.weathered.manager.WeatherManager;
 import org.bukkit.command.Command;
@@ -24,15 +27,21 @@ public class WeatheredCommand implements CommandExecutor {
                 return true;
             }
             else if (sender.hasPermission("weathered.setRegion") && Objects.equals(subcommand.toLowerCase(), "region")) {
-                StringBuilder region = new StringBuilder();
+                StringBuilder regionIdentifier = new StringBuilder();
                 if (args.length > 1){
                     for (int length = 1; length < args.length; length++){
-                        region.append(args[length]);
+                        regionIdentifier.append(args[length]);
                         if (length < args.length-1){
-                            region.append(" ");
+                            regionIdentifier.append(" ");
                         }
                     }
-                    WeatherManager.changeRegion(region.toString());
+                    Weather weather = OpenWeatherAPI.getWeather(regionIdentifier.toString());
+                    if(weather == null){
+                        sender.sendMessage("§cPlease provide a valid region!");
+                        return true;
+                    }
+                    Region region = weather.getRegion();
+                    WeatherManager.changeRegion(region);
                     sender.sendMessage("§eYou changed the region to §6§l" + region);
                 }
                 else {

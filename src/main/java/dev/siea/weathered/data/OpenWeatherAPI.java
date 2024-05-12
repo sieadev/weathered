@@ -6,8 +6,8 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import java.net.*;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 
@@ -16,14 +16,19 @@ public class OpenWeatherAPI {
     private static int fails = 0;
     private static String key;
     public static Weather getWeather(String region) {
-        String apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + region + "&appid=" + key;
+        String apiUrl = getApiUrl(region, key);
         try {
             JSONObject jsonResponse = getJsonObject(apiUrl);
+            if(jsonResponse == null) return null;
 
             JSONArray weatherArray = jsonResponse.getJSONArray("weather");
             JSONObject firstWeather = weatherArray.getJSONObject(0);
             String weatherDescription = firstWeather.getString("description");
+            JSONObject sysObject = jsonResponse.getJSONObject("sys");
 
+            String city = jsonResponse.getString("name");
+            String country = sysObject.getString("country");
+            int cityId = jsonResponse.getInt("id");
             int timezone = jsonResponse.getInt("timezone");
 
             double temp = jsonResponse.getJSONObject("main").getDouble("temp");
@@ -31,9 +36,8 @@ public class OpenWeatherAPI {
             LocalDateTime localDateTime = calculateLocalTime(timezone);
 
             long minecraftTicks = calculateMinecraftTime(localDateTime);
-
             fails = 0;
-            return new Weather(convertToWeatherType(weatherDescription), region,minecraftTicks, localDateTime, temp);
+            return new Weather(convertToWeatherType(weatherDescription), city, country, cityId, minecraftTicks, localDateTime, temp);
         } catch (Exception e) {
             fails++;
             if (fails > 5){
@@ -42,21 +46,28 @@ public class OpenWeatherAPI {
             return null;
         }
     }
-    private static JSONObject getJsonObject(String apiUrl) throws IOException {
-        URL url = new URL(apiUrl);
+    private static JSONObject getJsonObject(String apiUrl) {
+        try {
+            String decodedURL = URLDecoder.decode(apiUrl, StandardCharsets.UTF_8);
+            URL url = new URL(decodedURL);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
 
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.setRequestMethod("GET");
+            BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            StringBuilder response = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                response.append(line);
+            }
 
-        BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-        StringBuilder response = new StringBuilder();
-        String line;
-        while ((line = reader.readLine()) != null) {
-            response.append(line);
+            reader.close();
+            return new JSONObject(response.toString());
+        } catch (MalformedURLException e) {
+            Weathered.disable("§cInvalid URL: " + e.getMessage());
+        } catch (IOException e) {
+            Weathered.disable("§cUnable to connect to OpenWeatherAPI: " + e.getMessage());
         }
-        reader.close();
-
-        return new JSONObject(response.toString());
+        return null;
     }
 
     public static void setKey(String key) {
@@ -108,6 +119,15 @@ public class OpenWeatherAPI {
         ZoneOffset offset = ZoneOffset.ofTotalSeconds(timezoneOffsetSeconds);
         LocalDateTime utcTime = LocalDateTime.now(ZoneOffset.UTC);
         return utcTime.plusSeconds(offset.getTotalSeconds());
+    }
+
+    public static String getApiUrl(String region, String key) {
+        try {
+            int regionId = Integer.parseInt(region);
+            return "https://api.openweathermap.org/data/2.5/weather?id=" + regionId + "&appid=" + key;
+        } catch (NumberFormatException e) {
+            return "https://api.openweathermap.org/data/2.5/weather?q=" + region + "&appid=" + key;
+        }
     }
 
 }

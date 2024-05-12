@@ -31,7 +31,7 @@ public class PlaceHolderManager extends PlaceholderExpansion {
             case "weather":
                 return weather.getWeatherType().toString();
             case "region":
-                return weather.getRegion();
+                return weather.getRegion().getCity() + ", " + weather.getRegion().getCountry();
             case "temperature":
             case "temp":
                 return String.valueOf(weather.getTemp());

@@ -3,15 +3,15 @@ import java.time.LocalDateTime;
 
 public class Weather {
     private final WeatherType weatherType;
-    private final String region;
+    private final Region region;
     private final long minecraftTicks;
 
     private final LocalDateTime localDateTime;
     private final double temp;
 
-    public Weather(WeatherType weather, String region, long minecraftTicks, LocalDateTime localDateTime, double temp){
+    public Weather(WeatherType weather, String city, String country, int cityID, long minecraftTicks, LocalDateTime localDateTime, double temp){
         this.weatherType = weather;
-        this.region = region;
+        this.region = new Region(city, country, cityID);
         this.minecraftTicks = minecraftTicks;
         this.localDateTime = localDateTime;
         this.temp = Math.round((temp - 273.15) * 100.0) / 100.0;
@@ -21,7 +21,7 @@ public class Weather {
         return weatherType;
     }
 
-    public String getRegion() {
+    public Region getRegion() {
         return region;
     }
 

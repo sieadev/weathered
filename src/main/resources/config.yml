@@ -12,8 +12,9 @@
 # Create an account at openweathermap.org for this
 openweatherkey: '**************'
 
-# Syntax 'City,Country'
+# Syntax 'City,Country' OR 'City ID' (found by searching for the city on openweathermap.org, it will be at the end of the url)
 region: 'Berlin,Germany'
+#region: '2950159'
 
 update_interval_seconds: 10
 

@@ -89,6 +89,10 @@ public final class Weathered extends JavaPlugin {
         return api;
     }
 
+    public static Plugin getPlugin(){
+        return plugin;
+    }
+
     public static void updatePlaceHolders(Weather weather){
         if (placeHolderAPI) PlaceHolderManager.update(weather);
     }
